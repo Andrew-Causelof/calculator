@@ -1,0 +1,136 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600);
+
+* { box-sizing:border-box; margin:0; border:0; }
+html, body { height:100%; }
+
+body, .flex { display:flex; }
+
+body {
+  font:2rem/2 "Source Sans Pro";
+  align-items:center;
+  justify-content:center;
+  background:#222;
+  perspective:1000;
+}
+
+.calculator {
+  position:relative;
+  width:16rem;
+  height:21rem;
+  transform:rotateX(55deg) rotate(-35deg);
+  transform-style:preserve-3d;
+  animation:calc 3s 1.5s ease both;
+}
+@keyframes calc { to { transform:none; } }
+
+input, button {
+   animation:fall-a 2s ease-out backwards;
+}
+button:nth-child(3n+1){ animation-name:fall-b; }
+button:nth-child(3n+2){ animation-name:fall-c; }
+
+input {
+  position:relative;
+  display:block;
+  width:100%;
+  font:2.4rem/1 "Source Sans Pro";
+  text-align:right;
+  background:cornflowerblue;
+  padding:1rem 2rem;
+  animation-delay:.8s;
+  transition:.2s;
+  z-index:10;
+  border-radius:.5rem .5rem 0 0;
+}
+.clearable input { border-radius:.5rem 0 0; }
+input:focus { outline:0; }
+
+.clear {
+  display:inline-block;
+  position:absolute;
+  z-index:0;
+  top:0; left:100%;
+  padding:1.2rem 0;
+  font-size:1.3rem;
+  background:#111;
+  color:#444;
+  cursor:pointer;
+  user-select:none;
+  transform:translateX(-6rem);
+  transform-origin:left center;
+  transition:.2s, transform .8s;
+  border-radius:0 .5rem .5rem 0;
+  width:6rem;
+  text-align:center;
+  animation:hide-clear-button .2s 3s both;
+  opacity:0;
+}
+@keyframes hide-clear-button {
+  to { opacity:1; }
+}
+.clearable .clear { transform:none; }
+
+.clear:hover { background:#000; color:#555; }
+.clear:active { transition:0; background:cornflowerblue; color:black; }
+.calc-body {
+  width:16rem;
+  height:16rem;
+}
+
+.numpad, .controlspad {
+  user-select:none;
+}
+
+.numpad {
+  flex:3;
+  flex-wrap:wrap-reverse;
+}
+.controlspad {
+  flex:1;
+  flex-direction:column;
+}
+
+button {
+  font-size:1.6rem;
+  flex:1 0 30%;
+  margin:0;
+  padding:0;
+  cursor:pointer;
+  background:lightgray;
+  transition:.2s;
+}
+button:nth-child(5n){ animation-delay:.25s; }
+button:nth-child(5n+1){ animation-delay:.1s; }
+button:nth-child(5n+2){ animation-delay:.5s; }
+button:nth-child(5n+3){ animation-delay:.35s; }
+button:nth-child(5n+4){ animation-delay:.7s; }
+
+aside:hover button { background:gainsboro; }
+aside:hover button:hover,
+input:hover, input:focus {
+  transition:0;
+  background:cornflowerblue;
+  box-shadow:inset 0 -.25rem rgba(0,0,0,.2);
+}
+aside:hover button:active { opacity:.5; }
+
+
+
+.zero {
+  flex:1 0 60%;
+  border-bottom-left-radius:.5rem;
+}
+.equals {
+  flex:2;
+  border-bottom-right-radius:.5rem;
+}
+
+@keyframes fall-a {
+  from { transform:translateZ(40rem) rotate3d(-1,0,0,1turn); opacity:0; }
+}
+@keyframes fall-b {
+  from { transform:translate3d(2rem,2rem,40rem) rotate3d(1,0,-1,1turn); opacity:0; }
+}
+@keyframes fall-c {
+  from { transform:translateZ(40rem) rotate3d(1,1,1,1turn); opacity:0; }
+}
